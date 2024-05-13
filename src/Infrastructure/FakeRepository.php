@@ -2,7 +2,9 @@
 
 namespace Infrastructure;
 
-class FakeRepository
+class FakeRepository 
+implements 
+    \Application\Interfaces\CategoryRepository
 {
     private $mockCategories;
     private $mockBooks;
@@ -11,12 +13,12 @@ class FakeRepository
     public function __construct()
     {
         // create mock data
-        $this->mockCategories = array(
-            array(1, 'Mobile & Wireless Computing'),
-            array(2, 'Functional Programming'),
-            array(3, 'C / C++'),
-            array(4, '<< New Publications >>')
-        );
+        $this->mockCategories = [
+            [1, 'Mobile & Wireless Computing'],
+            [2, 'Functional Programming'],
+            [3, 'C / C++'],
+            [4, '<< New Publications >>']
+        ];
 
         $this->mockBooks = array(
             array(1, 1, 'Hello, Android:\nIntroducing Google\'s Mobile Development Platform', 'Ed Burnette', 19.97),
@@ -37,5 +39,12 @@ class FakeRepository
         );
     }
 
+    public function getCategories() : array{
+        $res = [];
+        foreach ($this->mockCategories as $c){
+            $res[] = new \Application\Entities\Category($c[0], $c[1]); 
+        }
+        return $res;
+    }
     // TODO: implementation
 }

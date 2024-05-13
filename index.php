@@ -11,8 +11,11 @@ spl_autoload_register(function ($class) {
 $sp = new ServiceProvider;
 // register services
 // ---APPLICATION
+$sp->register(\Application\CategoriesQuery::class);
 
 // ---INFRASTRUCTURE
+$sp->register(\Application\Interfaces\CategoryRepository::class, \Infrastructure\FakeRepository::class);
+$sp->register(\Infrastructure\FakeRepository::class);
 
 // ---PRESENTATION
 $sp->register(\Presentation\MVC\MVC::class, function(){
@@ -20,6 +23,7 @@ $sp->register(\Presentation\MVC\MVC::class, function(){
     return new \Presentation\MVC\MVC();
 });
 $sp->register(\Presentation\Controllers\Home::class);
+$sp->register(\Presentation\Controllers\Books::class);
 
 // TODO: handle request
 $sp->resolve(\Presentation\MVC\MVC::class)->handleRequest($sp);
