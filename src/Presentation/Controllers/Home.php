@@ -1,9 +1,10 @@
 <?php
 
-namespace Presentation\Controllers;
+namespace Presentation\Controllers; 
 
-class Home{
-    public function GET_Index(){
-        echo('TEST');
+class Home extends \Presentation\MVC\Controller
+{
+    public function GET_Index(): \Presentation\MVC\ActionResult{
+        return $this->view('home');
     }
 }
